@@ -82,7 +82,7 @@ class MainActivity : AppCompatActivity() {
         var encryptService = EncryptService()
         val ref1 = "1234"
         var time = System.currentTimeMillis()
-        val partnerToken = encryptService.getPartnerToken(ref1,time / 1000)
+        val partnerToken = encryptService.getPartnerToken(ref1,(time / 1000).toString().split(".")[0], "1111111111111", "SB10Y")
         val deeplinkRequest = PaymentDeeplinkRequest(
             "1234",
             "2134",
@@ -93,7 +93,10 @@ class MainActivity : AppCompatActivity() {
             "10",
             null,
             partnerToken,
-            "www.google.co.th"
+            "www.google.co.th",
+            "pantabut",
+            "",
+            ""
         )
 
         var accessToken = oauthResponse.result.accessToken ?: ""

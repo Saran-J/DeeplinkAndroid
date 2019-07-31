@@ -2,6 +2,7 @@ package com.example.deeplinknext.service
 
 import android.util.Base64
 import android.util.Log
+import com.example.deeplinknext.constant.baseUrlPayment
 import com.example.deeplinknext.constant.baseUrlOauth
 import com.example.deeplinknext.constant.baseUrlOauthLocal
 import com.example.deeplinknext.constant.baseUrlPaymentLocal
@@ -55,7 +56,7 @@ interface OauthService {
                 .addCallAdapterFactory(
                     RxJava2CallAdapterFactory.create())
                 .client(client)
-                .baseUrl(baseUrlOauthLocal)
+                .baseUrl(baseUrlOauth)
                 .build()
 
             return retrofit.create(OauthService::class.java)
@@ -94,7 +95,7 @@ interface PaymentService {
                 .addCallAdapterFactory(
                     RxJava2CallAdapterFactory.create())
                 .client(client)
-                .baseUrl(baseUrlPaymentLocal)
+                .baseUrl(baseUrlPayment)
                 .build()
 
             return retrofit.create(PaymentService::class.java)
@@ -108,9 +109,9 @@ interface PaymentService {
 }
 
 class EncryptService() {
-    fun getPartnerToken(ref1: String, time: Long): String {
+    fun getPartnerToken(ref1: String, time: String, cid: String, compCode: String): String {
         val cipher = Cipher.getInstance("AES/CBC/NoPadding")
-        val partnerObject = padString("{\"reference1\": \"$ref1\",\"payment_init_time\": \"$time\"}")
+        val partnerObject = padString("{\"reference1\": \"$ref1\",\"payment_init_time\": \"$time\",\"cid\": \"$cid\",\"comp_code\": \"$compCode\"}")
         val secretKeySpec = SecretKeySpec("6EC77FB50566B4DB6EC77FB50566B4DB".toByteArray(Charsets.UTF_8), "AES")
         val ivSpec = IvParameterSpec("A4628E5F5CC98BF5".toByteArray(Charsets.UTF_8))
         cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, ivSpec)

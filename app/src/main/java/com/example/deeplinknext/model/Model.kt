@@ -35,7 +35,10 @@ data class PaymentDeeplinkRequest(
     var fee: String,
     var extraData: String?,
     var partnerToken: String,
-    var returnUrl: String?
+    var returnUrl: String?,
+    var productName: String?,
+    var quantity: String?,
+    var compcode: String?
 )
 
 
